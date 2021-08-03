@@ -69,3 +69,17 @@ constraint fk_crime_pessoa_pessoa foreign key (id_pessoa) references pessoa (id)
 );
 create unique index ak_pessoa_crime on crime_pessoa (id_pessoa, id_crime);
 
+create table crime_arma
+(
+  id            serial       not null,
+  id_crime      integer      not null,
+  id_arma       integer      not null,
+  ativo         boolean      not null default true,
+  criado_em     timestamp(6) not null default now(),
+  modificado_em timestamp(6),
+  constraint pk_crime_arma primary key (id),
+  constraint fk_crime_arma_crime foreign key (id_crime) references crime (id),
+  constraint fk_crime_arma_arma foreign key (id_arma) references arma (id)
+);
+create unique index ak_crime_arma on crime_arma (id_arma, id_crime);
+
